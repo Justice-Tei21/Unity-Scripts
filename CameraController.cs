@@ -7,7 +7,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-    [SerializeField] bool istargeting;
+    
 
     [SerializeField] Canvas recticanvas;
     
@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     
     
 
-    public EventMaker eventmaker;
+    private EventMaker eventmaker;
     
 
     
