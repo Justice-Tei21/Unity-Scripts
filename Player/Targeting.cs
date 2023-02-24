@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,19 +5,22 @@ using UnityEngine;
 
 
 
+
 public class Targeting : MonoBehaviour
 {
+    
     public int totalnumberoftargets;
     private List<GameObject> m_candidatetargetsList = new();
     private List<GameObject> sorted_candidateList = new();
     private GameObject targetclosesettocamera;
     
-
+    
 
 
 
     public GameObject SelectnewTarget()
     {  
+        RemoveEmptyTargets();
         sorted_candidateList = m_candidatetargetsList.OrderBy(gameobjects =>
        { 
             /*imagine a line going from the camera to the way it's facing, imagine another line going

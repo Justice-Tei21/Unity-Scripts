@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GaManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
 
-    public static GaManager instance;
+    public static GameManager instance;
 
     Gamestate currentstate;
     // Start is called before the first frame update
@@ -40,6 +40,7 @@ public class GaManager : MonoBehaviour
             case Gamestate.bossroom:
                 break;
             case Gamestate.startmenu:
+                Menufunc();
                 break;
             default:
                 break;
@@ -49,9 +50,11 @@ public class GaManager : MonoBehaviour
 
     private void Menufunc()
     {
-
         SceneManager.LoadScene("StartMenu");
+
     }
+
+
 
 
     enum Gamestate

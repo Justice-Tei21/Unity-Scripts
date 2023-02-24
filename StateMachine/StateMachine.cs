@@ -6,21 +6,27 @@ public class StateMachine : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    BaseState currentstate;
+    public BaseState currentstate;
 
-    void Awake()
+    void Start()
     {
+
         currentstate = GetInitState();
         if (currentstate!=null)
         {
+
             currentstate.Enter();
         }
+
     }
 
     // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
-        currentstate.Update();
+      
+        
+        currentstate.UpdateAll();
     }
 
 

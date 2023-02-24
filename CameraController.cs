@@ -22,10 +22,10 @@ public class CameraController : MonoBehaviour
     
     
 
-    private EventMaker eventmaker;
-    
+    [SerializeField] EventMaker eventmaker;
 
-    
+
+
 
 
     /*private void Awake()
@@ -39,13 +39,18 @@ public class CameraController : MonoBehaviour
     }*/
 
     // Update is called once per frame
-    
 
-    private void OnEnable()
+
+    private void Start()
     {
+        
         eventmaker.onlookattarget.AddListener(ChangeTarget);
         eventmaker.ontargetfalse.AddListener(TargetingOff);
         Debug.Log("yehaw!");
+    }
+
+    private void OnEnable()
+    {
     }
 
     private void OnDisable()

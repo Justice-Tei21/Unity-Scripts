@@ -41,15 +41,15 @@ public class PlayerController : NetworkBehaviour
 
         {
             
-        LockOnTarget();
-        eventmaker.ChangeTargetstate(currenttarget, gameObject);
+            LockOnTarget();
+            eventmaker.Istargeting(currenttarget);
         
         }
-        /*
+        
         if (Input.GetKeyDown(KeyCode.T))
         {
             eventmaker.IsNotTargeting(gameObject);
-        }*/
+        }
 
         
 }

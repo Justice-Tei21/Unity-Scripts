@@ -23,7 +23,7 @@ public abstract class BaseState
     {
 
     }
-    public virtual void Update()
+    public virtual void UpdateAll()
     {
 
 

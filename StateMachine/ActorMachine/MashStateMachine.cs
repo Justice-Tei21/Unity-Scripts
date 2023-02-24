@@ -10,9 +10,9 @@ using UnityEngine.AI;
 /// 
 /// C# ani't shit, use c++ you sad, pathetic,no balls, eunuch, scrum lord.
 /// </summary>
-public class MashStateMachine:StateMachine
+public class MashStateMachine:ActorMachine
     {
-
+    
 
     public NavMeshAgent navmesh;
     public CapsuleCollider colbox;
@@ -20,13 +20,17 @@ public class MashStateMachine:StateMachine
     public Animator animator;
 
     
-     public BaseState approach;
-     public BaseState idle;
+    public ActorState approach;
+    public ActorState idle;
+    public ActorState attack;
 
     private void Awake()
     {
         approach = new ApproachState(this);
-        idle = new IdleState(this); 
+        idle = new IdleState(this);
+        attack = new AttackState(this);
+
+         
         
     }
 
@@ -34,7 +38,7 @@ public class MashStateMachine:StateMachine
 
     protected override BaseState GetInitState()
     {
-        return idle;
+        return approach;
     }
 
 }
