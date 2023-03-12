@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ApproachState : ActorState
 {
-    MashStateMachine mash;
-
+    readonly MashStateMachine mash;
+    float prefoffset = 2;
+    
+    
 
     public ApproachState(MashStateMachine stateMachine) : base("approach", stateMachine) {
     mash=stateMachine;
@@ -14,11 +16,11 @@ public class ApproachState : ActorState
     public override void Enter()
     {
 
-        Debug.Log("yes");
+        
         if (mash != null) 
         { 
         //mash.animator.Play(name);
-        mash.navmesh.SetDestination(mash.transform.position+Vector3.left * 10);
+        mash.navmesh.SetDestination(prefdistance());
         }
         base.Enter();
         
@@ -42,5 +44,13 @@ public class ApproachState : ActorState
     {
         mash.navmesh.SetDestination(mash.transform.position);
         base.Exit();
+    }
+
+
+    Vector3 prefdistance()
+    {
+        Vector3 targetpoint = mash.transform.position - mash.tarplayer.transform.position;
+        targetpoint = mash.tarplayer.transform.position + targetpoint.normalized * prefoffset;
+        return targetpoint;
     }
 }

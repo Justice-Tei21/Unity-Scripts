@@ -91,8 +91,8 @@ public class PlayerController : NetworkBehaviour
 
             //this chunk will have to be made into it's own attack in an attack state machine
             //SphereCollider sphere = currenttarget.GetComponent<SphereCollider>();
-            //Vector3 targetpoint = transform.position - currenttarget.transform.position;
 
+            //Vector3 targetpoint = transform.position - currenttarget.transform.position;
             //targetpoint = currenttarget.transform.position + targetpoint.normalized * sphere.radius;
             
             //transform.DOMove(targetpoint, 0.5f);

@@ -39,6 +39,7 @@ public class Targeting : MonoBehaviour
         }).ToList();
 
         m_candidatetargetsList = sorted_candidateList;
+        targetclosesettocamera = targetclosesettocamera == m_candidatetargetsList[0]&&m_candidatetargetsList.Count<2 ? m_candidatetargetsList[1] : m_candidatetargetsList[0];
         targetclosesettocamera = m_candidatetargetsList[0];
         return targetclosesettocamera;
     }
