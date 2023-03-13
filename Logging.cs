@@ -38,7 +38,7 @@ public class Logging :  MonoBehaviour
 
     public static void Log(string msg) {
     if(Islogging)
-    Debug.Log(msg);
+    Logging.Log(msg);
     
     }
 }

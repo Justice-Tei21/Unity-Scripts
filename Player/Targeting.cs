@@ -51,7 +51,7 @@ public class Targeting : MonoBehaviour
         {
             m_candidatetargetsList.Add(other.gameObject);
             totalnumberoftargets++;
-            Debug.Log("entered");
+            Logging.Log("entered");
             
         }        
     }

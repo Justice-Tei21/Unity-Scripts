@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
     /*private void Awake()
     {
         
-        Debug.Log("<color=red> cameraa controler starts</color>");
+        Logging.Log("<color=red> cameraa controler starts</color>");
         eventmaker.onlookattarget.AddListener(changetarget);
         eventmaker.ontargetfalse.AddListener(targetingOff);
         
@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
         
         eventmaker.onlookattarget.AddListener(ChangeTarget);
         eventmaker.ontargetfalse.AddListener(TargetingOff);
-        Debug.Log("yehaw!");
+        Logging.Log("yehaw!");
     }
 
     private void OnEnable()
@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
     public void ChangeTarget(GameObject lookat)
     {
         recticanvas.gameObject.SetActive(true);
-        Debug.Log("yo angelo");
+        Logging.Log("yo angelo");
 
         lookobject = lookat.transform;
         

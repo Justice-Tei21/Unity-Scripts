@@ -85,7 +85,7 @@ public class PlayerController : NetworkBehaviour
             //this is the gameobject of the target
             currenttarget = targetsystem.SelectnewTarget();
             
-            Debug.Log("klicked");
+            Logging.Log("klicked");
 
 
 

@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour
         }
         else
         Destroy(this);
-        
-        
-        
+
+
+        Logging.Log("");
         
     }
 
