@@ -13,7 +13,7 @@ public class Logging :  MonoBehaviour
 
   
 
-    [SerializeField] static bool Islogging=true;
+     static bool Islogging=true;
 
 
     // Start is called before the first frame update
@@ -36,9 +36,9 @@ public class Logging :  MonoBehaviour
     // Update is called once per frame
     
 
-    public static void Log(string msg) {
+    public static void Log(object msg) {
     if(Islogging)
-    Logging.Log(msg);
+    Debug.Log(msg);
     
     }
 }

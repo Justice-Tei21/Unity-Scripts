@@ -12,9 +12,6 @@ public class EventMaker : MonoBehaviour
     public UnityEvent<GameObject> ontargetfalse;
 
 
-    
-    
-
 
 
 

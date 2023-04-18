@@ -14,18 +14,13 @@ public class ApproachState : ActorState
     }
     
     public override void Enter()
-    {
-
-        
+    {  
         if (mash != null) 
         { 
         //mash.animator.Play(name);
-        mash.navmesh.SetDestination(prefdistance());
+        mash.navmesh.SetDestination(PrefDistance());
         }
         base.Enter();
-        
-        
-
     }
 
     // Update is called once per frame
@@ -47,7 +42,7 @@ public class ApproachState : ActorState
     }
 
 
-    Vector3 prefdistance()
+    Vector3 PrefDistance()
     {
         Vector3 targetpoint = mash.transform.position - mash.tarplayer.transform.position;
         targetpoint = mash.tarplayer.transform.position + targetpoint.normalized * prefoffset;

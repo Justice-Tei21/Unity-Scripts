@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentstate = Gamestate.gamestart;
+
         if (instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -22,13 +24,16 @@ public class GameManager : MonoBehaviour
         Destroy(this);
 
 
-        Logging.Log("");
+        
         
     }
 
-    // Update is called once per frame
-    void Update()
+    
+
+
+    private void ChangeState()
     {
+
         switch (currentstate)
         {
             case Gamestate.menu:
@@ -40,17 +45,21 @@ public class GameManager : MonoBehaviour
             case Gamestate.bossroom:
                 break;
             case Gamestate.startmenu:
-                Menufunc();
+                ChangeScene("StartMenu");
+                break;
+            case Gamestate.gamestart:
                 break;
             default:
                 break;
         }
+
+
     }
 
 
-    private void Menufunc()
+    private void ChangeScene(string scene)
     {
-        SceneManager.LoadScene("StartMenu");
+        SceneManager.LoadScene(scene);
 
     }
 
@@ -60,6 +69,7 @@ public class GameManager : MonoBehaviour
     enum Gamestate
     {
         startmenu,
+        gamestart,
         cutscene,
         menu,
         mainscene,

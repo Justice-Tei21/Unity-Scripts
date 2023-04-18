@@ -41,16 +41,13 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
 
 
-    private void Start()
-    {
-        
-        eventmaker.onlookattarget.AddListener(ChangeTarget);
-        eventmaker.ontargetfalse.AddListener(TargetingOff);
-        Logging.Log("yehaw!");
-    }
+
 
     private void OnEnable()
     {
+        eventmaker.onlookattarget.AddListener(ChangeTarget);
+        eventmaker.ontargetfalse.AddListener(TargetingOff);
+        Logging.Log("yehaw!");
     }
 
     private void OnDisable()
@@ -67,17 +64,13 @@ public class CameraController : MonoBehaviour
         lookobject = lookat.transform;
         
         lookcam.LookAt = lookobject;
-        cinemachineanimator.Play("lock on camera");
-
-        
-        
+        cinemachineanimator.Play("lock on camera");              
     }
 
     public void TargetingOff(GameObject player)
     {
         recticanvas.gameObject.SetActive(false);
         lookobject = player.transform;
-        cinemachineanimator.Play("free look camera");
-        
+        cinemachineanimator.Play("free look camera");        
     }
 }

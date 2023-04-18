@@ -4,11 +4,21 @@ using UnityEngine;
 
 
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName ="MyThings/enemy")]
 public class ActorData : ScriptableObject
 {
-    
+    public string type;
     public int health;
-    public int energy;
-    public Vector3 position;
+    public int Energy;
+
+    public float actioncooldown;
+    ActorData()
+    {
+        
+    }
+
+    
+
+    
+
 }

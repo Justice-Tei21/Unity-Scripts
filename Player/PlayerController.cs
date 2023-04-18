@@ -1,25 +1,25 @@
 using UnityEngine;
 using Unity.Netcode;
 
+
 public class PlayerController : NetworkBehaviour 
 {
 
     private float jumpvel;
     private Vector3 flatmove;
+    private bool isgrounded;
     public float speed=2;
-    
-    
+    float yvel;
 
-    Camera cam;
-    
-    [SerializeField]private EventMaker eventmaker;
-
-    
+    [SerializeField] EnvironmentData enviroment;
+    [SerializeField] float jumppowah;    
+    [SerializeField] private EventMaker eventmaker;
     [SerializeField]Targeting targetsystem;
-
-    GameObject currenttarget;
-
     [SerializeField] private CharacterController charcont;
+    GameObject currenttarget;
+    Camera cam;
+
+
 
     public override void OnNetworkSpawn()
     {
@@ -35,12 +35,19 @@ public class PlayerController : NetworkBehaviour
 
     void Update()
     {
+
+
+
         charcont.Move(GroundMove());
+
+        GroundCheck();
 
         if(Input.GetKeyDown(KeyCode.R))
 
         {
-            
+
+
+           
             LockOnTarget();
             eventmaker.Istargeting(currenttarget);
         
@@ -51,29 +58,45 @@ public class PlayerController : NetworkBehaviour
             eventmaker.IsNotTargeting(gameObject);
         }
 
+        if (Input.GetKeyDown(KeyCode.Space)&& isgrounded)
+        {
+            Jump();
+        }
+
         
 }
+
     /// <summary>
     /// a method specifically for the left/right, forward/backward movement. uses the inputAxis
     /// from the projectsettings for its behaviour. felt nice to modularize the controller a bit
     /// </summary>
     private Vector3 GroundMove()
     {
-        
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        flatmove = (cam.transform.right+transform.right) * x + (cam.transform.forward+cam.transform.forward) * y;
+        flatmove = (cam.transform.right) * x + (cam.transform.forward) * y;
 
         flatmove.y = 0;
 
         flatmove=speed*Time.deltaTime*flatmove.normalized;
         
         return flatmove;
+    }
+
+   void Jump()
+    {
+        yvel = jumppowah;
+
 
     }
 
 
+    void GroundCheck()
+    {
+        isgrounded = Physics.SphereCast(Vector3.down, 0.1f, Vector3.down, out _, (int)enviroment.environmentlayer, 1);
+
+    }
 
 
     //TODO:
@@ -98,7 +121,5 @@ public class PlayerController : NetworkBehaviour
             //transform.DOMove(targetpoint, 0.5f);
 
         }
-
-    }
-    
+    }    
 }

@@ -12,6 +12,9 @@ class AttackState:ActorState
 
     public override void Enter()
     {
+        GameObject newt = GameObject.CreatePrimitive(PrimitiveType.Cube);
+           newt .GetComponent<SpriteRenderer>().color=(Color.red);
+        newt.transform.position = mash.transform.position;
         
         base.Enter();
         //mash.animator.Play(name);
@@ -26,6 +29,9 @@ class AttackState:ActorState
     {
         base.Exit();
     }
+
+
+
 
 }
 

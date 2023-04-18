@@ -18,20 +18,16 @@ public class MashStateMachine:ActorMachine
     public CapsuleCollider colbox;
     public GameObject tarplayer;
     public Animator animator;
-
+    public EnemyManager enemyManager;
     
-    public ActorState approach;
-    public ActorState idle;
-    public ActorState attack;
+    
 
     private void Awake()
     {
         approach = new ApproachState(this);
         idle = new IdleState(this);
         attack = new AttackState(this);
-
-         
-        
+        death = new DeathState(this);
     }
 
     

@@ -19,7 +19,10 @@ class IdleState:ActorState
 
     public override void UpdateAll()
     {
+
         base.UpdateAll();
+
+
 
         if (Vector3.Distance(mash.gameObject.transform.position,mash.tarplayer.transform.position)<10)
         {

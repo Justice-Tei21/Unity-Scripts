@@ -8,13 +8,14 @@ public class StateMachine : MonoBehaviour
 
     public BaseState currentstate;
 
+
+
     void Start()
     {
 
         currentstate = GetInitState();
         if (currentstate!=null)
         {
-
             currentstate.Enter();
         }
 
@@ -23,12 +24,9 @@ public class StateMachine : MonoBehaviour
     // Update is called once per frame
     
     private void Update()
-    {
-      
-        
+    { 
         currentstate.UpdateAll();
     }
-
 
     public void ChangeState(BaseState newstate) 
     {
@@ -37,6 +35,8 @@ public class StateMachine : MonoBehaviour
         currentstate.Enter();
     
     }
+
+    
 
     protected virtual BaseState GetInitState()
     {

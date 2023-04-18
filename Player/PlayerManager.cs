@@ -10,14 +10,15 @@ public class PlayerManager : NetworkBehaviour
     PlayerController movescript;
     Targeting targetingscript;
 
-    
+
 
     // Start is called before the first frame update
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        
+        base.OnNetworkSpawn();
         if (!IsOwner) Destroy(this);
     }
+
 
     // Update is called once per frame
     void Update()
