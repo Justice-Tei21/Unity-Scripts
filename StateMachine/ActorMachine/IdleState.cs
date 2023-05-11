@@ -24,7 +24,7 @@ class IdleState:ActorState
 
 
 
-        if (Vector3.Distance(mash.gameObject.transform.position,mash.tarplayer.transform.position)<10)
+        if (Vector3.Distance(mash.gameObject.transform.position,mash.tarplayer.transform.position)<30)
         {
             mash.ChangeState(mash.approach);
         }

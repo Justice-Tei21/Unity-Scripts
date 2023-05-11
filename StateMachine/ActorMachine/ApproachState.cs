@@ -5,7 +5,7 @@ using UnityEngine;
 public class ApproachState : ActorState
 {
     readonly MashStateMachine mash;
-    float prefoffset = 2;
+    readonly float prefoffset = 2;
     
     
 
@@ -18,6 +18,7 @@ public class ApproachState : ActorState
         if (mash != null) 
         { 
         //mash.animator.Play(name);
+        mash.navmesh.speed = 8;
         mash.navmesh.SetDestination(PrefDistance());
         }
         base.Enter();

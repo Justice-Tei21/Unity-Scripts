@@ -7,13 +7,20 @@ public class EventMaker : MonoBehaviour
 {
     
     bool targeting = true;
+    public AbilitySystem abilities;
     public UnityEvent<GameObject> onlookattarget;
 
     public UnityEvent<GameObject> ontargetfalse;
 
 
 
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            abilities.BulletAbility();
+        }
+    }
 
     public void ChangeTargetstate(GameObject target, GameObject player)
     {

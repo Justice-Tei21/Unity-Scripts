@@ -1,11 +1,11 @@
 using UnityEngine;
 using Unity.Netcode;
-
+using UnityEditor.Animations;
+using System.Collections;
 
 public class PlayerController : NetworkBehaviour 
 {
 
-    private float jumpvel;
     private Vector3 flatmove;
     private bool isgrounded;
     public float speed=2;
@@ -14,11 +14,12 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] EnvironmentData enviroment;
     [SerializeField] float jumppowah;    
     [SerializeField] private EventMaker eventmaker;
-    [SerializeField]Targeting targetsystem;
+    [SerializeField] Targeting targetsystem;
     [SerializeField] private CharacterController charcont;
-    GameObject currenttarget;
+    public GameObject currenttarget;
+    [SerializeField] private Animator animcont;
     Camera cam;
-
+    [SerializeField] Transform gfx;
 
 
     public override void OnNetworkSpawn()
@@ -30,32 +31,37 @@ public class PlayerController : NetworkBehaviour
     private void Awake()
     {
         currenttarget = gameObject;
+
         cam = Camera.main;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(gameObject.transform.position, 0.1f);
     }
 
     void Update()
     {
 
-
-
-        charcont.Move(GroundMove());
+        charcont.Move((GroundMove())*Time.deltaTime);
+        charcont.Move(Vector3.up*yvel);
+     
 
         GroundCheck();
 
-        if(Input.GetKeyDown(KeyCode.R))
+        SetAnimation();
 
-        {
+        if(Input.GetKeyDown(KeyCode.R)&&LockOnTarget())
 
-
-           
-            LockOnTarget();
-            eventmaker.Istargeting(currenttarget);
+        { 
+                eventmaker.Istargeting(currenttarget);        
         
         }
         
         if (Input.GetKeyDown(KeyCode.T))
         {
             eventmaker.IsNotTargeting(gameObject);
+            currenttarget = null;
         }
 
         if (Input.GetKeyDown(KeyCode.Space)&& isgrounded)
@@ -76,11 +82,17 @@ public class PlayerController : NetworkBehaviour
         float y = Input.GetAxisRaw("Vertical");
 
         flatmove = (cam.transform.right) * x + (cam.transform.forward) * y;
-
-        flatmove.y = 0;
-
-        flatmove=speed*Time.deltaTime*flatmove.normalized;
+        if (flatmove.sqrMagnitude > 0.1)
+            gfx.rotation = Quaternion.Euler(0f,cam.transform.rotation.eulerAngles.y,0f);
         
+        
+        flatmove.y = 0;
+        
+        flatmove=speed*flatmove.normalized;
+
+        
+
+
         return flatmove;
     }
 
@@ -94,20 +106,29 @@ public class PlayerController : NetworkBehaviour
 
     void GroundCheck()
     {
-        isgrounded = Physics.SphereCast(Vector3.down, 0.1f, Vector3.down, out _, (int)enviroment.environmentlayer, 1);
+        isgrounded = Physics.SphereCast(gameObject.transform.position-Vector3.down*0.95f, 0.1f, Vector3.down, out _, (int)enviroment.environmentlayer, 1);
+        
+
+        if( isgrounded&& yvel<0 )
+            yvel = 0;
+        
+        else yvel-= Mathf.Clamp( Time.deltaTime*9.8f,0f,10f);
+
+
 
     }
 
 
     //TODO:
     //will have to move this to the targeting script
-    private void LockOnTarget()
+    private bool LockOnTarget()
     {
+        bool hastar = false;
         if (targetsystem.totalnumberoftargets > 0)
         {
             //this is the gameobject of the target
             currenttarget = targetsystem.SelectnewTarget();
-            
+            hastar = true;
             Logging.Log("klicked");
 
 
@@ -121,5 +142,34 @@ public class PlayerController : NetworkBehaviour
             //transform.DOMove(targetpoint, 0.5f);
 
         }
+        return hastar;
     }    
+
+
+
+    private void SetAnimation() 
+    {
+        animcont.SetFloat("S", flatmove.sqrMagnitude*64);
+
+        //switch(flatmove.sqrMagnitude) 
+        //{
+        //    case 0:
+        //        {animcont.CrossFade("Idle",0.2f); break; }
+                
+        //    default: { animcont.CrossFade("Run", 0.2f);break; }
+
+        //}
+
+        if (Input.GetKeyDown(KeyCode.Escape)) { animcont.CrossFade("Swing", 0.2f); }
+
+
+        //if (Input.GetKey(KeyCode.W)) {
+        //    animcont.CrossFade("Run",0.2f);
+        //}
+
+        //if(Input.GetKey(KeyCode.S))
+        //{
+
+        //}
+    }
 }
