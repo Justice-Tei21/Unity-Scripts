@@ -13,5 +13,5 @@ public class PlayerAbility:MonoBehaviour
     public virtual void AllUpdate() { }
 
     public virtual void Oncollision() { }
-    public virtual void Ending() { }
+    public virtual bool Ending() { return false; }
 }

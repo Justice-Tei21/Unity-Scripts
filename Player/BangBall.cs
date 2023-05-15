@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class BangBall : PlayerAbility
 {
 
-    GameObject bigball;
+    GameObject bigball ;
     readonly float radius = 2;
     Collider[] colls = new Collider[20];
 
@@ -18,13 +19,18 @@ public class BangBall : PlayerAbility
     
     public override void Beginning(Vector3 playerpos, Vector3 otherpos,AbilityData data)
     {
+        Logging.Log("allive");
         layer = 13;
 
         rot = Vector3.Normalize(otherpos - playerpos);
         transform.position = playerpos+rot;
 
+        
+        
+        bigball = Instantiate(data.gfxprefab,transform.position,quaternion.EulerXYZ(rot));
         bigball.transform.SetParent(gameObject.transform);
-        bigball = Instantiate(data.gfxprefab);
+        
+        
         bigball.AddComponent<SphereCollider>();
         bigball.GetComponent<SphereCollider>().radius = radius;
 
@@ -34,13 +40,16 @@ public class BangBall : PlayerAbility
     public override void AllUpdate()
     {
         
-
-
-        Physics.OverlapSphereNonAlloc(bigball.transform.position, radius,colls,layer);
+        Physics.OverlapSphereNonAlloc(bigball.transform.position,radius,colls,layer);
         transform.position += vel*Time.deltaTime*rot;
+
         for (int i = 0; i < colls.Length; i++)
         {
-            if (colls[i].gameObject.CompareTag("enemy"))
+            GameObject objecto = colls[i].gameObject;
+
+            if (objecto != null) break;
+
+            if (objecto.layer == layer)
             {
                 Logging.Log("hit it");
                 Ending();
@@ -48,6 +57,7 @@ public class BangBall : PlayerAbility
             
         }
 
+        colls = null;
     }
 
 
@@ -56,21 +66,22 @@ public class BangBall : PlayerAbility
     {
         base.Oncollision();
     }
-    public override void Ending()
+    public override bool Ending()
     {
+        
         base.Ending();
         Destroy(bigball);
         schema.RemoveActive(this);
-        Destroy(gameObject);
+        return true;
     }
 
 
 
     IEnumerator LifeSpan()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
 
-        Ending();
+        yield return this.Ending();
     }
 
 }

@@ -29,10 +29,10 @@ public class AbilitySystem : MonoBehaviour
         activeabilities.Add(b);
 
         Vector3 otherpos;
-        if (player.GetComponent<PlayerController>().currenttarget)
+        if (player.GetComponent<PlayerController>().currenttarget )
             otherpos = player.GetComponent<PlayerController>().currenttarget.transform.position;
         else otherpos = player.transform.position + player.transform.eulerAngles;
-        b.Beginning(player.transform.position,otherpos);
+        b.Beginning(player.transform.position,otherpos,balldata);
     }
 
     // Update is called once per frame
@@ -49,6 +49,6 @@ public class AbilitySystem : MonoBehaviour
     public void RemoveActive(PlayerAbility tokill)
     {
         activeabilities.Remove(tokill);
-        Destroy(tokill);
+        Destroy(tokill.gameObject);
     }
 }
