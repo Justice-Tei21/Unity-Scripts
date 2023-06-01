@@ -18,11 +18,13 @@ public class Damageable : MonoBehaviour
     {
         status=gameObject.GetComponent<Statistics>();
         this.animator = GetComponent<Animator>();
+        maxhealth = status.health;
+        currenthealth = maxhealth;
     }
 
     public void HitThis(int damage)
     {
-
+        
         status.HealthChanged(damage);
 
         animator.CrossFade(hitanimation,0.4f);

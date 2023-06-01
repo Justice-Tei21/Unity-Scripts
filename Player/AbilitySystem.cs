@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class AbilitySystem : MonoBehaviour
@@ -25,14 +26,25 @@ public class AbilitySystem : MonoBehaviour
 
     public void BulletAbility()
     {
-        BangBall b = gameObject.AddComponent<BangBall>();
-        activeabilities.Add(b);
-
         Vector3 otherpos;
-        if (player.GetComponent<PlayerController>().currenttarget )
+        if (player.GetComponent<PlayerController>().currenttarget  )
             otherpos = player.GetComponent<PlayerController>().currenttarget.transform.position;
-        else otherpos = player.transform.position + player.transform.eulerAngles;
-        b.Beginning(player.transform.position,otherpos,balldata);
+        else otherpos = player.transform.position + player.transform.forward*100;
+
+        
+        
+
+        GameObject b = Instantiate(balldata.gfxprefab, transform.position, quaternion.EulerXYZ(BangBall.Align(transform.position,otherpos)));
+
+        b.AddComponent<BangBall>();
+
+        BangBall ball = b.GetComponent<BangBall>();
+
+        ball.SetSchema(this);
+        activeabilities.Add(ball);
+       
+
+        
     }
 
     // Update is called once per frame
@@ -49,6 +61,6 @@ public class AbilitySystem : MonoBehaviour
     public void RemoveActive(PlayerAbility tokill)
     {
         activeabilities.Remove(tokill);
-        Destroy(tokill.gameObject);
+        Destroy(tokill);
     }
 }

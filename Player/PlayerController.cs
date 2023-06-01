@@ -37,14 +37,14 @@ public class PlayerController : NetworkBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(gameObject.transform.position, 0.1f);
+        Gizmos.DrawSphere(gameObject.transform.position+Vector3.down, 0.1f);
     }
 
     void Update()
     {
 
-        charcont.Move((GroundMove())*Time.deltaTime);
-        charcont.Move(Vector3.up*yvel);
+        charcont.Move(GroundMove()*Time.deltaTime);
+        charcont.Move(yvel* Vector3.up);
      
 
         GroundCheck();
@@ -82,11 +82,15 @@ public class PlayerController : NetworkBehaviour
         float y = Input.GetAxisRaw("Vertical");
 
         flatmove = (cam.transform.right) * x + (cam.transform.forward) * y;
+
         if (flatmove.sqrMagnitude > 0.1)
-            gfx.rotation = Quaternion.Euler(0f,cam.transform.rotation.eulerAngles.y,0f);
-        
-        
+        {
+            float rotangle = Mathf.Atan2(flatmove.y, flatmove.x);
+            gfx.rotation = Quaternion.Euler(0, rotangle * Mathf.Rad2Deg, 0);
+        }
         flatmove.y = 0;
+        
+        
         
         flatmove=speed*flatmove.normalized;
 
@@ -106,15 +110,15 @@ public class PlayerController : NetworkBehaviour
 
     void GroundCheck()
     {
-        isgrounded = Physics.SphereCast(gameObject.transform.position-Vector3.down*0.95f, 0.1f, Vector3.down, out _, (int)enviroment.environmentlayer, 1);
+        isgrounded = Physics.SphereCast(gameObject.transform.position+Vector3.down, 0.02f, Vector3.down, out _, (int)enviroment.environmentlayer, 1);
         
 
         if( isgrounded&& yvel<0 )
             yvel = 0;
         
-        else yvel-= Mathf.Clamp( Time.deltaTime*9.8f,0f,10f);
+        else yvel-=  4f *Time.deltaTime;
 
-
+        yvel = Mathf.Clamp(yvel, -10, jumppowah);
 
     }
 

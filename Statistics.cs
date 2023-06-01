@@ -5,7 +5,7 @@ using UnityEngine;
 
 class Statistics: MonoBehaviour
 {
-    float health;
+    public float health;
 
    readonly  ActorMachine stateMachine;
     [SerializeField] ActorData data;

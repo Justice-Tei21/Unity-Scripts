@@ -23,6 +23,7 @@ class AttackState:ActorState
     public override void UpdateAll()
     {
         base.UpdateAll();
+
     }
 
     public override void Exit()
@@ -31,6 +32,7 @@ class AttackState:ActorState
     }
 
 
+    
 
 
 }

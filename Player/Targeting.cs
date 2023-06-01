@@ -1,5 +1,7 @@
+using ParrelSync.NonCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -13,6 +15,8 @@ public class Targeting : MonoBehaviour
     private List<GameObject> m_candidatetargetsList = new();
     private List<GameObject> sorted_candidateList = new();
     private GameObject targetclosesettocamera;
+    [SerializeField] private SphereCollider zone;
+
     
     
 
@@ -20,7 +24,9 @@ public class Targeting : MonoBehaviour
 
     public GameObject SelectnewTarget()
     {  
-        RemoveEmptyTargets();
+        //RemoveEmptyTargets();
+
+        
         sorted_candidateList = m_candidatetargetsList.OrderBy(gameobjects =>
        { 
             /*imagine a line going from the camera to the way it's facing, imagine another line going
@@ -43,8 +49,30 @@ public class Targeting : MonoBehaviour
         targetclosesettocamera = m_candidatetargetsList[0];
         return targetclosesettocamera;
     }
-    
 
+
+    private void Update()
+    {
+
+        m_candidatetargetsList.Clear();
+        Collider[] hitthing = Physics.OverlapSphere(transform.position, zone.radius);
+        
+        
+        for(int i = 0; i < hitthing.Length; i++)
+        {
+            GameObject objecto = hitthing[i].gameObject;
+
+            if (objecto.CompareTag("targetable"))
+            {
+                m_candidatetargetsList.Add(objecto);
+                totalnumberoftargets++;
+                
+            }
+        }
+        totalnumberoftargets = m_candidatetargetsList.Count;
+    }
+
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("targetable"))
@@ -63,7 +91,7 @@ public class Targeting : MonoBehaviour
             m_candidatetargetsList.Add(other.gameObject);
             totalnumberoftargets--;
         }        
-    }
+    }*/
 
     /// <summary>
     /// This method will check for when a gameobject exits the targeting range without moving out

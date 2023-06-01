@@ -8,24 +8,25 @@ public class BangBall : PlayerAbility
 
     GameObject bigball ;
     readonly float radius = 2;
-    Collider[] colls = new Collider[20];
+    int damage = 40;
+    Collider[] colls = new Collider[15];
 
     Vector3 rot;
-
-    float vel=5;
+    Vector3 other;
+    float vel=20;
     LayerMask layer;
 
 
     
     public override void Beginning(Vector3 playerpos, Vector3 otherpos,AbilityData data)
     {
-        Logging.Log("allive");
+        
         layer = 13;
 
-        rot = Vector3.Normalize(otherpos - playerpos);
-        transform.position = playerpos+rot;
+        transform.position = playerpos+transform.rotation.eulerAngles;
+        rot = Vector3.Normalize(otherpos - transform.position);
 
-        
+        other = otherpos;
         
         bigball = Instantiate(data.gfxprefab,transform.position,quaternion.EulerXYZ(rot));
         bigball.transform.SetParent(gameObject.transform);
@@ -40,24 +41,28 @@ public class BangBall : PlayerAbility
     public override void AllUpdate()
     {
         
+        
         Physics.OverlapSphereNonAlloc(bigball.transform.position,radius,colls,layer);
-        transform.position += vel*Time.deltaTime*rot;
+        bigball.transform.position += vel*Time.deltaTime*transform.forward;
 
         for (int i = 0; i < colls.Length; i++)
         {
-            GameObject objecto = colls[i].gameObject;
+            if (colls[i] != null) break;
 
-            if (objecto != null) break;
+            
 
-            if (objecto.layer == layer)
+            
+
+            if (colls[i].gameObject.layer == layer )
             {
                 Logging.Log("hit it");
+                colls[i].gameObject.GetComponent<Damageable>().HitThis(damage);
                 Ending();
             }
             
+
         }
 
-        colls = null;
     }
 
 
@@ -70,6 +75,7 @@ public class BangBall : PlayerAbility
     {
         
         base.Ending();
+
         Destroy(bigball);
         schema.RemoveActive(this);
         return true;
@@ -82,6 +88,12 @@ public class BangBall : PlayerAbility
         yield return new WaitForSeconds(1f);
 
         yield return this.Ending();
+    }
+
+    public static Vector3 Align(Vector3 start, Vector3 end)
+    {
+
+        return Vector3.Normalize(end - start);
     }
 
 }
