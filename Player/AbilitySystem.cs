@@ -41,6 +41,7 @@ public class AbilitySystem : MonoBehaviour
         BangBall ball = b.GetComponent<BangBall>();
 
         ball.SetSchema(this);
+        ball.Beginning();
         activeabilities.Add(ball);
        
 

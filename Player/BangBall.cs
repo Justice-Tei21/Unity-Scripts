@@ -18,18 +18,10 @@ public class BangBall : PlayerAbility
 
 
     
-    public override void Beginning(Vector3 playerpos, Vector3 otherpos,AbilityData data)
+    public override void Beginning()
     {
         
         layer = 13;
-
-        transform.position = playerpos+transform.rotation.eulerAngles;
-        rot = Vector3.Normalize(otherpos - transform.position);
-
-        other = otherpos;
-        
-      
-        
         
         gameObject.AddComponent<SphereCollider>();
         gameObject.GetComponent<SphereCollider>().radius = radius;
@@ -64,18 +56,15 @@ public class BangBall : PlayerAbility
 
     }
 
-
-
     public override void Oncollision()
     {
         base.Oncollision();
     }
+
+
     public override bool Ending()
     {
-        
-        base.Ending();
-
-        
+        base.Ending();   
         schema.RemoveActive(this);
         return true;
     }

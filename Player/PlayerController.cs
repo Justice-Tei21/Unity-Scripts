@@ -85,7 +85,7 @@ public class PlayerController : NetworkBehaviour
 
         if (flatmove.sqrMagnitude > 0.1)
         {
-            float rotangle = Mathf.Atan2(flatmove.y, flatmove.x);
+            float rotangle = Mathf.Atan2(flatmove.x, flatmove.z);
             gfx.rotation = Quaternion.Euler(0, rotangle * Mathf.Rad2Deg, 0);
         }
         flatmove.y = 0;
@@ -93,8 +93,6 @@ public class PlayerController : NetworkBehaviour
         
         
         flatmove=speed*flatmove.normalized;
-
-        
 
 
         return flatmove;
