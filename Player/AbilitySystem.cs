@@ -61,6 +61,6 @@ public class AbilitySystem : MonoBehaviour
     public void RemoveActive(PlayerAbility tokill)
     {
         activeabilities.Remove(tokill);
-        Destroy(tokill);
+        Destroy(tokill.gameObject);
     }
 }

@@ -28,12 +28,11 @@ public class BangBall : PlayerAbility
 
         other = otherpos;
         
-        bigball = Instantiate(data.gfxprefab,transform.position,quaternion.EulerXYZ(rot));
-        bigball.transform.SetParent(gameObject.transform);
+      
         
         
-        bigball.AddComponent<SphereCollider>();
-        bigball.GetComponent<SphereCollider>().radius = radius;
+        gameObject.AddComponent<SphereCollider>();
+        gameObject.GetComponent<SphereCollider>().radius = radius;
 
         StartCoroutine(LifeSpan());
     }
@@ -76,7 +75,7 @@ public class BangBall : PlayerAbility
         
         base.Ending();
 
-        Destroy(bigball);
+        
         schema.RemoveActive(this);
         return true;
     }
