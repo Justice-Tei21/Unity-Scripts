@@ -1,0 +1,68 @@
+.LOG
+
+
+
+kommer att börja med en mer seriös log.
+
+
+här är tidslinjen.
+
+Började med att göra ett urp projekt och gjorde en bas scen med en strukturerad hierarki
+för att underlätta med organisering potentiellt hierarchi sökningar i framtiden.
+
+
+Gjorde en enkel scene med i en yta att gå på och gjorde en enkel movement script med
+en character controller istället för rigidbody eftersom jag ville göra min egna fysik
+för spelaren. 
+
+Tänkte ha med ett targeting system för spelet likt kingdom hearts eftersom jag just hade
+klått den första på en emulator. Tror att det kommer att bli en action spel. Tog mig 
+några lektioner att få det rätt och under tiden gjorde jag fick jag kameran att ändra
+vilken rikting "fram" är, lärde mig lite om hur shadergraph fungerar och gjorde en 
+klass som hanterar vissa event. event klassen är för det mesta bara en samling på event
+och funktioner för att jag forfararande vill att keyboard inputs ska hanteras av player 
+controller. 
+
+saker saktade ner lite men jag implementera arv och polymorphism med en "finite state 
+machine" för en fiendetyp. Lärde mig hur navmesh fungerade och använde det för fiende 
+rörlse.
+
+några dagar senare satte jag all min debug loggning i en statisk log klass så att jag 
+skulle kunna sluta debugga med ett knapptryck.
+
+idag gjorde jag en metod för att hoppa och att kolla på om man nuddar marken. gjorde
+ även en scriptableobject för omgivningsdata. spenderade resten av dagen med 
+instuderingsfrågor.
+14:42 22/03/2023
+
+gjorde ett litet mistag med loggaren där en metod anropade sig själv vilket skapade en
+"stack overflow" error
+10:02 31/03/2023
+
+
+hade några problem med mitt targeting system igen när jag flyttade några saker över 
+till prefabs. fixade dem men det var jobbigt. kommer att fokusera på att lägga till
+några animationer och modeller, sedan kommer jag att jobba på liv och död.
+13:49 03/05/2023
+
+har nu laddat spelaren och kan äntligen lägga till alla animationer i en animation 
+controller. har nu börjat lägga in alla animationer och transitions tillsammans med
+lite förbättring på en Bullet Ability.
+09:34 11/05/2023
+
+det fanns några problem med animationerna eftersom det rörde sig själva men det är 
+för det mesta löst utan några större animationsfel
+12:40 15/05/2023
+
+tredje gången gilt, höll på med animation, arbetade på projektilen, fungerar rätt 
+så bra men med några små-fel. kommer nog börja med en demolevel men kommer inte 
+göra mycket mer med världen efter det, kommer definitivt lägga till mer features 
+men det kommer inte bli någon överlappande story(berättelse).
+23:24 04/06/2023
+
+gjort en masxsa över det senaste veckorna,projektiler och liknande är färdigt gjorde en enkel attac
+animation för masher, gjort attack strängar för karaktären, måste fortfarande lägga till att saker 
+kan bli skadade. gjorde en enkel karta i blender och använde navmesh för fiende movement.
+det var en hel overhaul av targeting för att inte använda rigidbody och samma sak för 
+projektilen men med att den behövde bli ett separat element. jag kunde ha gjort mer med min
+tid under 6 månader men jag hade et tag då jag gick runt helt utan en plan.
