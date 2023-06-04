@@ -21,7 +21,7 @@ public class PlayerController : NetworkBehaviour
     Camera cam;
     [SerializeField] Transform gfx;
 
-
+    //ig i turn it into multiplayer, this makes syre you only control your own controller
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) Destroy(this);
@@ -35,22 +35,19 @@ public class PlayerController : NetworkBehaviour
         cam = Camera.main;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(gameObject.transform.position+Vector3.down, 0.1f);
-    }
+    
 
     void Update()
     {
-
+        //all the movement
         charcont.Move(GroundMove()*Time.deltaTime);
         charcont.Move(yvel* Vector3.up);
      
 
         GroundCheck();
-
         SetAnimation();
 
+        //start targeting
         if(Input.GetKeyDown(KeyCode.R)&&LockOnTarget())
 
         { 
@@ -58,11 +55,14 @@ public class PlayerController : NetworkBehaviour
         
         }
         
+        //end targeting
         if (Input.GetKeyDown(KeyCode.T))
         {
             eventmaker.IsNotTargeting(gameObject);
             currenttarget = null;
         }
+
+
 
         if (Input.GetKeyDown(KeyCode.Space)&& isgrounded)
         {
@@ -97,15 +97,13 @@ public class PlayerController : NetworkBehaviour
 
         return flatmove;
     }
-
-   void Jump()
+    public void Jump()
     {
         yvel = jumppowah;
-
-
     }
+    
 
-
+    //spherecast on ground
     void GroundCheck()
     {
         isgrounded = Physics.SphereCast(gameObject.transform.position+Vector3.down, 0.02f, Vector3.down, out _, (int)enviroment.environmentlayer, 1);
@@ -116,7 +114,7 @@ public class PlayerController : NetworkBehaviour
         
         else yvel-=  4f *Time.deltaTime;
 
-        yvel = Mathf.Clamp(yvel, -10, jumppowah);
+        //yvel = Mathf.Clamp(yvel, -10, jumppowah);
 
     }
 
@@ -135,7 +133,7 @@ public class PlayerController : NetworkBehaviour
 
 
 
-            //this chunk will have to be made into it's own attack in an attack state machine
+            //this chunk will have to be made into part pg it's own attack 
             //SphereCollider sphere = currenttarget.GetComponent<SphereCollider>();
 
             //Vector3 targetpoint = transform.position - currenttarget.transform.position;
@@ -148,30 +146,22 @@ public class PlayerController : NetworkBehaviour
     }    
 
 
-
+    //info for the animator, s for speed
     private void SetAnimation() 
     {
         animcont.SetFloat("S", flatmove.sqrMagnitude*64);
 
-        //switch(flatmove.sqrMagnitude) 
-        //{
-        //    case 0:
-        //        {animcont.CrossFade("Idle",0.2f); break; }
-                
-        //    default: { animcont.CrossFade("Run", 0.2f);break; }
+       
 
-        //}
-
-        if (Input.GetKeyDown(KeyCode.Escape)) { animcont.CrossFade("Swing", 0.2f); }
+        //lines below are for attack strings,
+        if (Input.GetKeyDown(KeyCode.Mouse0))  animcont.SetBool("attack", true); 
 
 
-        //if (Input.GetKey(KeyCode.W)) {
-        //    animcont.CrossFade("Run",0.2f);
-        //}
+        //checks if animation is partially done
+        if(animcont.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.4)
+            animcont.SetBool("attack", false);
 
-        //if(Input.GetKey(KeyCode.S))
-        //{
 
-        //}
+        
     }
 }

@@ -15,7 +15,7 @@ class Statistics: MonoBehaviour
         health=data.health;
     }
 
-
+    //begins death of hp less than 0
     public void HealthChanged(int damage)
     {
 

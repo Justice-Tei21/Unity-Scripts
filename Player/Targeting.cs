@@ -21,7 +21,7 @@ public class Targeting : MonoBehaviour
     
 
 
-
+    // selects the gameobject closest to the centre of the camera
     public GameObject SelectnewTarget()
     {  
         //RemoveEmptyTargets();
@@ -44,13 +44,15 @@ public class Targeting : MonoBehaviour
             return angle;
         }).ToList();
 
+
         m_candidatetargetsList = sorted_candidateList;
-        targetclosesettocamera = targetclosesettocamera == m_candidatetargetsList[0]&&m_candidatetargetsList.Count<2 ? m_candidatetargetsList[1] : m_candidatetargetsList[0];
+        
         targetclosesettocamera = m_candidatetargetsList[0];
         return targetclosesettocamera;
     }
 
 
+    //finds colliders in range with a spherecast
     private void Update()
     {
 

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AbilitySystem : MonoBehaviour
 {
@@ -12,7 +14,6 @@ public class AbilitySystem : MonoBehaviour
 
 
     //these might not be necessary
-    PlayerAbility bangball;
     [SerializeField] PlayerAbility ability2;
     [SerializeField] PlayerAbility ability3;
 
@@ -23,7 +24,7 @@ public class AbilitySystem : MonoBehaviour
     List<PlayerAbility> activeabilities = new ();
 
     
-
+    //of there is a target, use that pos otherwise, just somewhere infront
     public void BulletAbility()
     {
         Vector3 otherpos;
@@ -32,15 +33,15 @@ public class AbilitySystem : MonoBehaviour
         else otherpos = player.transform.position + player.transform.forward*100;
 
         
-        
+        //creation of the ability gameobject
 
-        GameObject b = Instantiate(balldata.gfxprefab, transform.position, quaternion.EulerXYZ(BangBall.Align(transform.position,otherpos)));
+        GameObject b = Instantiate(balldata.gfxprefab, transform.position,transform.rotation);
 
         b.AddComponent<BangBall>();
-
         BangBall ball = b.GetComponent<BangBall>();
 
         ball.SetSchema(this);
+        ball.other = otherpos;
         ball.Beginning();
         activeabilities.Add(ball);
        
@@ -48,7 +49,7 @@ public class AbilitySystem : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+   // Update every instance
     void Update()
     {
         for (int i = 0; i < activeabilities.Count; i++)
@@ -58,7 +59,8 @@ public class AbilitySystem : MonoBehaviour
         
     }
 
-
+    //remove the instance from the list of active abilities
+    //and then destroys it
     public void RemoveActive(PlayerAbility tokill)
     {
         activeabilities.Remove(tokill);

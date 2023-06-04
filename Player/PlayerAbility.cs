@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerAbility:MonoBehaviour
 {
 
+
+    // basicallly another basestate
     [SerializeField]protected AbilitySystem schema;
 
     public void SetSchema(AbilitySystem schema) { this.schema = schema; }
 
     public virtual void Beginning(){ }
-
-    public virtual void Beginning(Vector3 playerpos, Vector3 otherpos, AbilityData data) { }
 
     public virtual void AllUpdate() { }
 

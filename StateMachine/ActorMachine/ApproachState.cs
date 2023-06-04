@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ApproachState : ActorState
 {
     readonly MashStateMachine mash;
-    readonly float prefoffset = 2;
+    readonly float prefoffset = 1;
     
     
 
@@ -13,6 +14,8 @@ public class ApproachState : ActorState
     mash=stateMachine;
     }
     
+
+    //finds the players position at one point and moses there with an offset
     public override void Enter()
     {  
         if (mash != null) 
@@ -24,7 +27,7 @@ public class ApproachState : ActorState
         base.Enter();
     }
 
-    // Update is called once per frame
+    //if it has nowhere to go it enters idle
     public override void UpdateAll()
     {
 
@@ -36,13 +39,15 @@ public class ApproachState : ActorState
 
     }
 
+    //just to make sure that it stays in the same place,
+    //might not do anything
     public override void Exit()
     {
         mash.navmesh.SetDestination(mash.transform.position);
         base.Exit();
     }
 
-
+    //sets a point a certain distance infront of the target
     Vector3 PrefDistance()
     {
         Vector3 targetpoint = mash.transform.position - mash.tarplayer.transform.position;

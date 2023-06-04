@@ -16,24 +16,7 @@ public class Logging :  MonoBehaviour
      static bool Islogging=true;
 
 
-    // Start is called before the first frame update
-
-    //void Start()
-    //{
-
-        
-    //    if (instance==null)
-    //    {
-    //        instance = this;
-    //    }
-    //    else
-    //    {
-    //     Destroy(this);   
-
-    //    }
-    //}
-
-    // Update is called once per frame
+    //turns off and on the debug logs globallyyb by being static
     
 
     public static void Log(object msg) {

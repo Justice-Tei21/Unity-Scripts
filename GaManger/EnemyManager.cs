@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
-
+//not in use yet
     public class EnemyManager: NetworkBehaviour
     {
 
@@ -14,15 +15,12 @@ using UnityEngine;
         Destroy(this);
     }
 
+    
 
-    private void Start()
-    {
-        for (int i = 0; i < mashtactors; i++) {
-            enemyobjects.Add(mash);
-        }
-    }
 
-    [SerializeField] int mashtactors;
+    [SerializeField] int enemiestospawn;
+    
+    int mashtactors;
 
 
     [SerializeField]  GameObject mash;
@@ -31,10 +29,18 @@ using UnityEngine;
     List<GameObject> enemyobjects = new ();
     List<ActorMachine> machines = new();
 
+    
 
-    Vector3[] spawnpoints = new Vector3[4];
+
+    [SerializeField]Vector3[] spawnpoints = new Vector3[4];
     [SerializeField] Dictionary<string,ActorData> enemydata = new ();
 
+    private void Start()
+    {
+        for (int i = 0; i < mashtactors; i++) {
+            enemyobjects.Add(mash);
+        }
+    }
     public ActorData GetActorData(string name)
     {
         return enemydata[name];

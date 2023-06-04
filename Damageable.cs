@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
-    // Start is called before the first frame update
-    float maxhealth;
-    float currenthealth;
+    
 
     Animator animator;
     [SerializeField] string hitanimation;
@@ -18,10 +16,10 @@ public class Damageable : MonoBehaviour
     {
         status=gameObject.GetComponent<Statistics>();
         this.animator = GetComponent<Animator>();
-        maxhealth = status.health;
-        currenthealth = maxhealth;
+        
     }
 
+    //will call yhe statistics to say that damage has been dealt
     public void HitThis(int damage)
     {
         

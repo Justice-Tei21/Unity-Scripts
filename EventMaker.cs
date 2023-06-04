@@ -8,6 +8,7 @@ public class EventMaker : MonoBehaviour
     
     bool targeting = true;
     public AbilitySystem abilities;
+    public Animator animator;
     public UnityEvent<GameObject> onlookattarget;
 
     public UnityEvent<GameObject> ontargetfalse;
@@ -22,6 +23,9 @@ public class EventMaker : MonoBehaviour
         }
     }
 
+
+    // what happens when the target changes
+    // unused 
     public void ChangeTargetstate(GameObject target, GameObject player)
     {
         targeting = !targeting;
@@ -39,11 +43,14 @@ public class EventMaker : MonoBehaviour
 
     }
 
+
+    //camera cont uses this to switch camera
     public void Istargeting(GameObject target)
     {
         onlookattarget.Invoke(target);
     }
 
+    // switches to freelook camera 
     public void IsNotTargeting(GameObject player)
     {
         ontargetfalse.Invoke(player);

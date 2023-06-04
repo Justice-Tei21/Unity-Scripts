@@ -1,8 +1,7 @@
 
 using Cinemachine;
 using UnityEngine;
-
-
+using UnityEngine.WSA;
 
 public class CameraController : MonoBehaviour
 {
@@ -38,11 +37,11 @@ public class CameraController : MonoBehaviour
         
     }*/
 
-    // Update is called once per frame
+   
 
 
 
-
+    //listens for the lock on and loch of events individualy
     private void OnEnable()
     {
         eventmaker.onlookattarget.AddListener(ChangeTarget);
@@ -56,6 +55,7 @@ public class CameraController : MonoBehaviour
         eventmaker.ontargetfalse.RemoveListener(TargetingOff);
     }
 
+    //change the target and and control the recticle
     public void ChangeTarget(GameObject lookat)
     {
         recticanvas.gameObject.SetActive(true);
@@ -67,6 +67,7 @@ public class CameraController : MonoBehaviour
         cinemachineanimator.Play("lock on camera");              
     }
 
+    //switch to regular camera and turn of recticle
     public void TargetingOff(GameObject player)
     {
         recticanvas.gameObject.SetActive(false);

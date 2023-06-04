@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     
 
-
+    // supposed to be a super simple state changer, should use a state machine instead
     private void ChangeState()
     {
 

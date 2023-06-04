@@ -10,21 +10,23 @@ class IdleState:ActorState
         }
 
 
+    
     public override void Enter()
     {
-        
+        Logging.Log("now idle");
         base.Enter();
         //mash.animator.Play(name);
     }
 
+
+    //sees if the player is close enough and exit the idle state
     public override void UpdateAll()
     {
 
         base.UpdateAll();
 
 
-
-        if (Vector3.Distance(mash.gameObject.transform.position,mash.tarplayer.transform.position)<30)
+        if (Vector3.Distance(mash.gameObject.transform.position,mash.tarplayer.transform.position)<10)
         {
             mash.ChangeState(mash.approach);
         }

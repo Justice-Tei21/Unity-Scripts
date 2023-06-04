@@ -7,6 +7,7 @@ class DeathState: ActorState
 
     EnemyManager enemyManager;
 
+
     public DeathState(MashStateMachine mashStateMachine) : base("Death", mashStateMachine)
     {
 
@@ -15,15 +16,15 @@ class DeathState: ActorState
     }
 
 
-
+    //should probaly make it so that he doesn't instantly die
     public override void Enter()
     {
-    mash.animator.CrossFade(name,0.1f);
+    mash.animator.Play(name);
         enemyManager.DeactivateActor(mash);
 
     }
 
-
+    
     public override void UpdateAll()
     {
        
