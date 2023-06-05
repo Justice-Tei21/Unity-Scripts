@@ -26,22 +26,22 @@ public class EventMaker : MonoBehaviour
 
     // what happens when the target changes
     // unused 
-    public void ChangeTargetstate(GameObject target, GameObject player)
-    {
-        targeting = !targeting;
-        if (targeting)
-        {
-            onlookattarget.Invoke(target);
-            targeting = false;
-        }
+    //public void ChangeTargetstate(GameObject target, GameObject player)
+    //{
+    //    targeting = !targeting;
+    //    if (targeting)
+    //    {
+    //        onlookattarget.Invoke(target);
+    //        targeting = false;
+    //    }
 
-        else 
-        { 
-            ontargetfalse.Invoke(player); 
-            targeting = true;
-        }
+    //    else 
+    //    { 
+    //        ontargetfalse.Invoke(player); 
+    //        targeting = true;
+    //    }
 
-    }
+    //}
 
 
     //camera cont uses this to switch camera
